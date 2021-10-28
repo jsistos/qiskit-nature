@@ -22,6 +22,7 @@ import numpy as np
 from scipy.sparse import csc_matrix
 
 from qiskit_nature.operators.second_quantization.second_quantized_op import SecondQuantizedOp
+from qiskit.circuit import Parameter, ParameterExpression
 
 _ZERO_LABELS = {
     ("+", "+"),
@@ -384,7 +385,7 @@ class FermionicOp(SecondQuantizedOp):
         return self._register_length
 
     def mul(self, other: complex) -> "FermionicOp":
-        if not isinstance(other, (int, float, complex)):
+        if not isinstance(other, (int, float, complex, Parameter, ParameterExpression)):
             raise TypeError(
                 f"Unsupported operand type(s) for *: 'FermionicOp' and '{type(other).__name__}'"
             )
